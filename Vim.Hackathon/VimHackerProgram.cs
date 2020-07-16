@@ -23,6 +23,8 @@ namespace Vim.Hackathon
         public static string RstSampleProject = Path.Combine(TestInputFolder, "rst_basic_sample_project.rvt.json");
         public static string RacSampleProject = Path.Combine(TestInputFolder, "rac_basic_sample_project.rvt.json");
 
+        public static string WolfordHouseVim = Path.Combine(TestInputFolder, "Wolford_Residence_2019.vim");
+
         public static Va3cContainer LoadVa3c(string filePath)
         {
             using (var file = File.OpenText(filePath))
@@ -145,35 +147,43 @@ namespace Vim.Hackathon
 
         public static void SaveAsVa3c(this VimScene vim, string filePath)
             => vim.ToVa3c().Write(filePath);
-        
+
         public static string TestJsonLoad(string filePath)
         {
             // Try loading the JSON and saving as VIM
             var va3c = LoadVa3c(filePath);
             var outputVim = Util.ChangeDirectoryAndExt(filePath, TestOutputFolder, ".vim");
             va3c.SaveAsVim(outputVim);
-            
-            /* TODO: there is a bug in the VIM loading code that needs to be addressed .
-              
-            // Check we can open the VIM
-            var vim = VimScene.LoadVim(outputVim);
 
-            // Save the VIM as JSON
-            var outputJson = Path.ChangeExtension(outputVim, ".json");
-            vim.SaveAsVa3c(outputJson);
-            
-            // Now try reloading thw new JSON and saving again as VIM
-            va3c = LoadVa3c(outputJson);
-            outputVim = Path.ChangeExtension(outputVim, ".resaved.vim");
-            va3c.SaveAsVim(outputVim);
+            /* TODO: there is a bug in the VIM loading code that needs to be addressed 
+             * preventing this roundtrip. It doesn't like missing data.
+              
+            return TestVimToJsonToVim(outputVim);
             */
 
             return outputVim;
         }
 
+        public static string TestVimToJsonToVim(string filePath)
+        {
+            // Check we can open the VIM
+            var vim = VimScene.LoadVim(filePath);
+
+            // Save the VIM as JSON
+            var outputJson = Path.ChangeExtension(filePath, ".json");
+            vim.SaveAsVa3c(outputJson);
+
+            // Now try reloading thw new JSON and saving again as VIM
+            var va3c = LoadVa3c(outputJson);
+            var outputVim = Util.ChangeDirectoryAndExt(filePath, TestOutputFolder, ".resaved.vim");
+            va3c.SaveAsVim(outputVim);
+            return outputVim;
+        }
+
         public static void Main(string[] args)
         {
-            var output = TestJsonLoad(RacSampleProject);
+            //var output = TestJsonLoad(RacSampleProject);
+            var output = TestVimToJsonToVim(WolfordHouseVim);
             Process.Start(output);
         }
     }

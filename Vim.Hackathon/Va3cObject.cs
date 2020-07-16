@@ -153,7 +153,7 @@ namespace Vim.Hackathon
         [DataMember]
         public Metadata metadata { get; set; } = new Metadata();
         [DataMember(Name = "object")]
-        public Va3cObject obj { get; set; }
+        public Va3cObject obj { get; set; } = new Va3cObject { type = "scene" };
         [DataMember]
         public List<Va3cGeometry> geometries = new List<Va3cGeometry>();
         [DataMember]
