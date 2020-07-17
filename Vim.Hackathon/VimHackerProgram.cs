@@ -19,11 +19,11 @@ namespace Vim.Hackathon
         public static string TestInputFolder => Path.Combine(TestDataFolder, "input");
         public static string TestOutputFolder => Path.Combine(TestDataFolder, "output");
 
-        public static string TestBimSocketFile = Path.Combine(TestInputFolder, "BIMSocket.json");
-        public static string RstSampleProject = Path.Combine(TestInputFolder, "rst_basic_sample_project.rvt.json");
-        public static string RacSampleProject = Path.Combine(TestInputFolder, "rac_basic_sample_project.rvt.json");
+        public static string JsonTestBimSocketFile = Path.Combine(TestInputFolder, "BIMSocket.json");
+        public static string JsonRstSampleProject = Path.Combine(TestInputFolder, "rst_basic_sample_project.rvt.json");
+        public static string JsonRacSampleProject = Path.Combine(TestInputFolder, "rac_basic_sample_project.rvt.json");
 
-        public static string WolfordHouseVim = Path.Combine(TestInputFolder, "Wolford_Residence_2019.vim");
+        public static string VimWolfordHouse = Path.Combine(TestInputFolder, "Wolford_Residence_2019.vim");
 
         public static Va3cContainer LoadVa3c(string filePath)
         {
@@ -131,7 +131,7 @@ namespace Vim.Hackathon
                 ProcessNode(db, c, geometryLookup);
         }
 
-        public static SerializableDocument ToVim(this Va3cContainer va3c)
+        public static VimScene ToVim(this Va3cContainer va3c)
         {
             var db = new DocumentBuilder();
             var geometryLookup = new Dictionary<string, int>();
@@ -139,27 +139,25 @@ namespace Vim.Hackathon
                 geometryLookup.Add(g.uuid, geometryLookup.Count);
             db.AddGeometries(va3c.geometries.Select(ToGeometryBuilder));
             ProcessNode(db, va3c.obj, geometryLookup);
-            return db.ToDocument();
+            return new VimScene(db.ToDocument());
         }
 
         public static void SaveAsVim(this Va3cContainer va3c, string filePath)
-            => Serializer.Serialize(va3c.ToVim(), filePath);
+            => va3c.ToVim().Save(filePath);
 
         public static void SaveAsVa3c(this VimScene vim, string filePath)
             => vim.ToVa3c().Write(filePath);
 
-        public static string TestJsonLoad(string filePath)
+        public static string TestJsonToVim(string filePath, bool roundTrip)
         {
             // Try loading the JSON and saving as VIM
             var va3c = LoadVa3c(filePath);
             var outputVim = Util.ChangeDirectoryAndExt(filePath, TestOutputFolder, ".vim");
             va3c.SaveAsVim(outputVim);
 
-            /* TODO: there is a bug in the VIM loading code that needs to be addressed 
-             * preventing this roundtrip. It doesn't like missing data.
-              
-            return TestVimToJsonToVim(outputVim);
-            */
+            // TODO: currently fails
+            if (roundTrip)
+                return TestVimToJsonToVim(outputVim);
 
             return outputVim;
         }
@@ -180,10 +178,29 @@ namespace Vim.Hackathon
             return outputVim;
         }
 
+        public static string TestVimToObj(string filePath, string objFilePath = null)
+        {
+            objFilePath = objFilePath ?? Util.ChangeDirectoryAndExt(filePath, TestOutputFolder, ".obj");
+            VimScene.LoadVim(filePath).ToIMesh().WriteObj(objFilePath);
+            return objFilePath;
+        }
+
+        public static string TestJsonToObj(string filePath, string objFilePath = null)
+        {
+            objFilePath = objFilePath ?? Util.ChangeDirectoryAndExt(filePath, TestOutputFolder, ".obj");
+            LoadVa3c(filePath).ToVim().ToIMesh();
+            return objFilePath;
+        }
+
         public static void Main(string[] args)
         {
-            //var output = TestJsonLoad(RacSampleProject);
-            var output = TestVimToJsonToVim(WolfordHouseVim);
+            //var output = TestJsonToVim(RacSampleProject);
+
+            // TEMP: broken
+            //var output = TestJsonToObj(JsonRacSampleProject);
+
+            var output = TestVimToObj(VimWolfordHouse);
+
             Process.Start(output);
         }
     }
