@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6547A7CF-4C2B-433F-A74E-D3CA806DA092}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Vim.TextConverter</RootNamespace>
+    <AssemblyName>Vim.TextConverter</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ExportToText.cs" />
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Vim\BFast\csharp\Vim.BFast\Vim.BFast.csproj">
+      <Project>{9825F31E-D0C0-4DC9-9BCB-09A22A48C952}</Project>
+      <Name>Vim.BFast</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Vim\Buffers\Vim.Buffers.csproj">
+      <Project>{4D68A5CE-9379-40E1-80B3-1143F807EBBA}</Project>
+      <Name>Vim.Buffers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Vim\DataFormat\Vim.DataFormat.csproj">
+      <Project>{439C53FE-5BB0-4F32-ADFF-42A935AFFCC6}</Project>
+      <Name>Vim.DataFormat</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Vim\DotNetUtilities.JsonSerializer\Vim.DotNetUtilities.JsonSerializer.csproj">
+      <Project>{1724C668-8E8E-4AAB-B89F-0C9EC99C6479}</Project>
+      <Name>Vim.DotNetUtilities.JsonSerializer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Vim\DotNetUtilities\Vim.DotNetUtilities.csproj">
+      <Project>{C6A7470A-59D2-4B39-A9C3-A1C5744B1709}</Project>
+      <Name>Vim.DotNetUtilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Vim\G3d\csharp\Vim.G3d\Vim.G3d.csproj">
+      <Project>{28024898-dc5f-49df-8c96-2fba6442a562}</Project>
+      <Name>Vim.G3d</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Vim\Geometry\Vim.Geometry.csproj">
+      <Project>{C52B9991-2B31-4534-9B38-13E2A2BDD76A}</Project>
+      <Name>Vim.Geometry</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Vim\LinqArray\LinqArray\Vim.LinqArray.csproj">
+      <Project>{eecb5764-c4df-4f92-9146-9e59e9118cac}</Project>
+      <Name>Vim.LinqArray</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Vim\Math3d\src\Vim.Math3d.csproj">
+      <Project>{5CA2ABC8-EDF1-4834-966B-72935F4C4DA7}</Project>
+      <Name>Vim.Math3d</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
