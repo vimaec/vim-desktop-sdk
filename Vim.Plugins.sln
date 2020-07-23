@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29926.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vim.Grid.Plugin", "Vim.Grid.Plugin\Vim.Grid.Plugin.csproj", "{7B976C1F-B601-4BD6-B1AF-4B2E33D539E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vim.MeshLoader.Plugin", "Vim.MeshLoader.Plugin\Vim.MeshLoader.Plugin.csproj", "{D6EEF09A-784E-4BCF-9A06-ED1CF7EA3F26}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7B976C1F-B601-4BD6-B1AF-4B2E33D539E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B976C1F-B601-4BD6-B1AF-4B2E33D539E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B976C1F-B601-4BD6-B1AF-4B2E33D539E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B976C1F-B601-4BD6-B1AF-4B2E33D539E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6EEF09A-784E-4BCF-9A06-ED1CF7EA3F26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6EEF09A-784E-4BCF-9A06-ED1CF7EA3F26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6EEF09A-784E-4BCF-9A06-ED1CF7EA3F26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6EEF09A-784E-4BCF-9A06-ED1CF7EA3F26}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1A7BF915-37D8-44DF-99A3-E443C1319D0B}
+	EndGlobalSection
+EndGlobal
