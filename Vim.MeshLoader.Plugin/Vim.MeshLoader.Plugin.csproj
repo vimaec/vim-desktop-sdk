@@ -59,6 +59,9 @@
       <HintPath>..\..\..\..\Program Files\VIM\Viewer\Vim.Collaboration.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Vim.DataFormat, Version=1.1.54.0, Culture=neutral, PublicKeyToken=null">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Vim.Desktop.Api">
       <HintPath>..\..\..\..\Program Files\VIM\Viewer\Vim.Desktop.Api.dll</HintPath>
       <Private>False</Private>
@@ -96,6 +99,12 @@
     <PackageReference Include="AssimpNet">
       <Version>4.1.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Vim.Hackathon\Vim.Hackathon.csproj">
+      <Project>{bbf7c7a6-bd9b-4581-89e0-e1b6eeb6f2cf}</Project>
+      <Name>Vim.Hackathon</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -78,7 +78,7 @@ namespace Vim.Hackathon
         public static Vector3 ToVertex(double x, double y, double z)
             => new Vector3((float)x * Mult, (float)y * Mult, (float)z * Mult);
 
-        public static GeometryBuilder ToGeometryBuilder(Va3cGeometry g)
+        public static GeometryBuilder ToGeometryBuilder(this Va3cGeometry g)
         {
             var gb = new GeometryBuilder();
             var vertices = g.data.vertices.ToIArray()
