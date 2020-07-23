@@ -109,7 +109,9 @@ namespace Vim.MeshLoader.Plugin
         public void LoadAssimpFile(string filePath)
         {
             var scene = context.ImportFile(filePath, PostProcessSteps.Triangulate);
-            LoadedMeshes = scene.Meshes.Select(ToMeshData).ToList();
+            LoadedMeshes = scene.Meshes
+                .Select(ToMeshData)
+                .ToList();
             CollectInstances(scene.RootNode, Matrix4x4.Identity, LoadedInstances);
             meshesLoaded = true;
         }
@@ -117,7 +119,9 @@ namespace Vim.MeshLoader.Plugin
         public void LoadVa3CFile(string filePath)
         {
             var va3c = VimHackerProgram.LoadVa3c(filePath);
-            LoadedMeshes = va3c.geometries.Select(g => ToMeshData(g.ToGeometryBuilder())).ToList();
+            LoadedMeshes = va3c.geometries
+                .Select(g => ToMeshData(g.ToGeometryBuilder()))
+                .ToList();
 
             var geoLookup = new Dictionary<string, int>();
             foreach (var g in va3c.geometries)
@@ -135,7 +139,8 @@ namespace Vim.MeshLoader.Plugin
             //var filePath = @"C:\dev\repos\assimp\test\models\OBJ\WusonOBJ.obj";
             //LoadAssimpFile(filePath);
 
-            var filePath = @"C:\dev\repos\vim-desktop-sdk\test-data\input\BIMSocket.json";
+            //var filePath = @"C:\dev\repos\vim-desktop-sdk\test-data\input\BIMSocket.json";
+            var filePath = @"C:\dev\repos\vim-desktop-sdk\test-data\input\rac_basic_sample_project.rvt.json";
             LoadVa3CFile(filePath);
         }
 
@@ -149,14 +154,16 @@ namespace Vim.MeshLoader.Plugin
                 // Create the meshes 
                 foreach (var md in LoadedMeshes)
                 {
-                    md.ApiMesh = API.Scene.CreateMesh(md.Vertices, md.Indices, Color);
+                    if (md.Vertices.Length > 0 && md.Indices.Length > 0)
+                        md.ApiMesh = API.Scene.CreateMesh(md.Vertices, md.Indices, Color);
                 }
 
                 // Create the instances
                 foreach (var inst in LoadedInstances)
                 {
                     var mesh = LoadedMeshes[inst.MeshIndex];
-                    inst.ApiInstance = API.Scene.CreateInstance(mesh.ApiMesh, Matrix4x4.Identity, Color);
+                    if (mesh?.ApiMesh != null)
+                        inst.ApiInstance = API.Scene.CreateInstance(mesh.ApiMesh, Matrix4x4.Identity, Color);
                 }
 
                 meshesCreated = true;
