@@ -139,8 +139,8 @@ namespace Vim.MeshLoader.Plugin
             //var filePath = @"C:\dev\repos\assimp\test\models\OBJ\WusonOBJ.obj";
             //LoadAssimpFile(filePath);
 
-            //var filePath = @"C:\dev\repos\vim-desktop-sdk\test-data\input\BIMSocket.json";
-            var filePath = @"C:\dev\repos\vim-desktop-sdk\test-data\input\rac_basic_sample_project.rvt.json";
+            var filePath = @"C:\dev\repos\vim-desktop-sdk\test-data\input\BIMSocket2.json";
+            //var filePath = @"C:\dev\repos\vim-desktop-sdk\test-data\input\rac_basic_sample_project.rvt.json";
             LoadVa3CFile(filePath);
         }
 
