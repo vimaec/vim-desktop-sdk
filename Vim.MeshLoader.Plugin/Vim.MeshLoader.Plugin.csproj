@@ -104,6 +104,7 @@
     <ProjectReference Include="..\Vim.Hackathon\Vim.Hackathon.csproj">
       <Project>{bbf7c7a6-bd9b-4581-89e0-e1b6eeb6f2cf}</Project>
       <Name>Vim.Hackathon</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

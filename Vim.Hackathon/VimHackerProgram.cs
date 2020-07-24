@@ -131,19 +131,19 @@ namespace Vim.Hackathon
                 ProcessNode(db, c, geometryLookup);
         }
 
-        public static VimScene ToVim(this Va3cContainer va3c)
+        public static void SaveAsVim(this Va3cContainer va3c, string filePath)
         {
             var db = new DocumentBuilder();
             var geometryLookup = new Dictionary<string, int>();
             foreach (var g in va3c.geometries)
-                geometryLookup.Add(g.uuid, geometryLookup.Count);
+            {
+                if (g != null && g.data.vertices.Count > 0 && g.data.faces.Count > 0)
+                    geometryLookup.Add(g.uuid, geometryLookup.Count);
+            }
             db.AddGeometries(va3c.geometries.Select(ToGeometryBuilder));
             ProcessNode(db, va3c.obj, geometryLookup);
-            return new VimScene(db.ToDocument());
+            Serializer.Serialize(db.ToDocument(), filePath);
         }
-
-        public static void SaveAsVim(this Va3cContainer va3c, string filePath)
-            => va3c.ToVim().Save(filePath);
 
         public static void SaveAsVa3c(this VimScene vim, string filePath)
             => vim.ToVa3c().Write(filePath);
@@ -185,22 +185,9 @@ namespace Vim.Hackathon
             return objFilePath;
         }
 
-        public static string TestJsonToObj(string filePath, string objFilePath = null)
-        {
-            objFilePath = objFilePath ?? Util.ChangeDirectoryAndExt(filePath, TestOutputFolder, ".obj");
-            LoadVa3c(filePath).ToVim().ToIMesh();
-            return objFilePath;
-        }
-
         public static void Main(string[] args)
         {
-            //var output = TestJsonToVim(RacSampleProject);
-
-            // TEMP: broken
-            //var output = TestJsonToObj(JsonRacSampleProject);
-
-            var output = TestVimToObj(VimWolfordHouse);
-
+            var output = TestJsonToVim(JsonRacSampleProject, false);
             Process.Start(output);
         }
     }
